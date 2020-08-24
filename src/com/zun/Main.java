@@ -7,41 +7,28 @@ public class Main {
     public static void main(String[] args) {
         int[] intArray = { 20, 35, -15, 7, 55, 1, -22 };
 
-        mergeSort(intArray, 0, intArray.length);
+        insertionSort(intArray, intArray.length);
 
         System.out.println(Arrays.toString(intArray));
     }
 
-    public static void mergeSort(int[] input, int start, int end) {
+    private static void insertionSort(int[] input, int numItems) {
 
-        if (end - start < 2) {
+        if (numItems < 2) {
             return;
         }
 
-        int mid = (start + end) / 2;
-        mergeSort(input, start, mid);
-        mergeSort(input, mid, end);
-        merge(input, start, mid, end);
-    }
+        insertionSort(input, numItems - 1);
 
-    public static void merge(int[] input, int start, int mid, int end) {
+        int newElement = input[numItems - 1];
 
-        if (input[mid - 1] >= input[mid]) {
-            return;
+        int i;
+
+        for (i = numItems - 1; i > 0 && input[i - 1] > newElement; i--) {
+            input[i] = input[i - 1];
         }
 
-        int i = start;
-        int j = mid;
-        int tempIndex = 0;
-
-        int[] temp = new int[end - start];
-        while (i < mid && j < end) {
-            temp[tempIndex++] = input[i] >= input[j] ? input[i++] : input[j++];
-        }
-
-        System.arraycopy(input, i, input, start + tempIndex, mid - i);
-        System.arraycopy(temp, 0, input, start, tempIndex);
-
+        input[i] = newElement;
 
     }
 
