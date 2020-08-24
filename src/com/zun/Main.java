@@ -13,18 +13,33 @@ public class Main {
         Employee employee3 = new Employee(22, "Mary", "Smith");
         Employee employee4 = new Employee(3245, "Mike", "Wilson");
 
-        EmployeeLinkedList list = new EmployeeLinkedList();
+        EmployeeDoublyLinkedList list = new EmployeeDoublyLinkedList();
 
         list.addToFront(employee1);
         list.addToFront(employee2);
         list.addToFront(employee3);
         list.addToFront(employee4);
 
-        list.print();
-        System.out.println("Size of EmployeeLinkedList is: " + list.getSize());
+        getPrintout(list);
+
+        Employee employee5 = new Employee(1, "Bill", "Nye");
+
+        list.addToEnd(employee5);
+
+        getPrintout(list);
+
         list.removeFromFront();
+
+        getPrintout(list);
+
+        list.removeFromEnd();
+
+        getPrintout(list);
+    }
+
+    private static void getPrintout(EmployeeDoublyLinkedList list){
         list.print();
-        System.out.println("Size of EmployeeLinkedList is: " + list.getSize());
+        System.out.println(list.getSize());
 
     }
 }
