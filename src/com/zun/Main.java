@@ -5,31 +5,49 @@ import java.util.Arrays;
 public class Main {
 
     public static void main(String[] args) {
-        int[] intArray = { 20, 35, -15, 7, 55, 1, -22 };
+        String[] stringsArray = { "bcdef", "dbaqc", "abcde", "omadd", "bbbbb"};
 
-        insertionSort(intArray, intArray.length);
+        // do radix sort
+        radixSort(stringsArray, 26, 5);
 
-        System.out.println(Arrays.toString(intArray));
+        System.out.println(Arrays.toString(stringsArray));
     }
 
-    private static void insertionSort(int[] input, int numItems) {
+    private static void radixSort(String[] input, int radix, int width) {
+        for (int i = width - 1; i >= 0; i--) {
+            radixSingleSort(input, i, radix);
+        }
+    }
 
-        if (numItems < 2) {
-            return;
+    private static void radixSingleSort(String[] input, int position, int radix) {
+
+        int numItems = input.length;
+        int[] countArray = new int[radix];
+
+        for (String value: input) {
+            countArray[getIndex(position, value)]++;
+        }
+        // Adjust the count array
+        for (int j = 1; j < radix; j++) {
+            countArray[j] += countArray[j - 1];
         }
 
-        insertionSort(input, numItems - 1);
-
-        int newElement = input[numItems - 1];
-
-        int i;
-
-        for (i = numItems - 1; i > 0 && input[i - 1] > newElement; i--) {
-            input[i] = input[i - 1];
+        String[] temp = new String[numItems];
+        for (int tempIndex = numItems - 1; tempIndex >= 0; tempIndex--) {
+            temp[--countArray[getIndex(position, input[tempIndex])]] =
+                    input[tempIndex];
         }
 
-        input[i] = newElement;
+        for (int tempIndex = 0; tempIndex < numItems; tempIndex++) {
+            input[tempIndex] = temp[tempIndex];
+        }
 
     }
+
+    private static int getIndex(int position, String value) {
+        return value.charAt(position) - 'a';
+    }
+
+
 
 }
