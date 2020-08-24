@@ -8,43 +8,45 @@ public class Main {
 
         int[] intArr = {20, 35, -15, 7, 55, 1, -22};
 
-        mergeSort(intArr, 0, intArr.length);
+        quickSort(intArr, 0, intArr.length);
 
         System.out.println(Arrays.toString(intArr));
     }
 
-    public static void mergeSort(int[] input, int start, int end) {
-
+    public static void quickSort(int[] input, int start, int end) {
         if (end - start < 2) {
             return;
         }
 
-        int mid = (start + end) / 2;
-        mergeSort(input, start, mid);
-        mergeSort(input, mid, end);
-        merge(input, start, mid, end);
+        int pivotIndex = partition(input, start, end);
+        quickSort(input, start, pivotIndex);
+        quickSort(input, pivotIndex + 1, end);
     }
 
-    // { 20, 35, -15, 7, 55, 1, -22 }
-    public static void merge(int[] input, int start, int mid, int end) {
-
-        if (input[mid - 1] <= input[mid]) {
-            return;
-        }
-
+    public static int partition(int[] input, int start, int end) {
+        // This is using the first element as the pivot
+        int pivot = input[start];
         int i = start;
-        int j = mid;
-        int tempIndex = 0;
+        int j = end;
 
-        int[] temp = new int[end - start];
-        while (i < mid && j < end) {
-            temp[tempIndex++] = input[i] <= input[j] ? input[i++] : input[j++];
+        while (i < j) {
+
+            // NOTE: empty loop body
+            while (i < j && input[--j] >= pivot);
+            if (i < j) {
+                input[i] = input[j];
+            }
+
+            // NOTE: empty loop body
+            while (i < j && input[++i] <= pivot);
+            if (i < j) {
+                input[j] = input[i];
+            }
+
         }
 
-        System.arraycopy(input, i, input, start + tempIndex, mid - i);
-        System.arraycopy(temp, 0, input, start, tempIndex);
-
+        input[j] = pivot;
+        return j;
 
     }
-
 }
