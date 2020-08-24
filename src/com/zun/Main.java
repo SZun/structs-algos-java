@@ -6,48 +6,49 @@ public class Main {
 
     public static void main(String[] args) {
 
-        int[] intArr = {20, 35, -15, 7, 55, 1, -22};
+        int[] intArr = {4725, 4586, 1330, 8792, 1594, 5729};
 
-        quickSort(intArr, 0, intArr.length);
+        radixSort(intArr, 10, 4);
 
         System.out.println(Arrays.toString(intArr));
     }
 
-    public static void quickSort(int[] input, int start, int end) {
-        if (end - start < 2) {
-            return;
+    public static void radixSort(int[] input, int radix, int width) {
+        for (int i = 0; i < width; i++) {
+            radixSingleSort(input, i, radix);
         }
-
-        int pivotIndex = partition(input, start, end);
-        quickSort(input, start, pivotIndex);
-        quickSort(input, pivotIndex + 1, end);
     }
 
-    public static int partition(int[] input, int start, int end) {
-        // This is using the first element as the pivot
-        int pivot = input[start];
-        int i = start;
-        int j = end;
+    public static void radixSingleSort(int[] input, int position, int radix) {
 
-        while (i < j) {
+        int numItems = input.length;
+        int[] countArray = new int[radix];
 
-            // NOTE: empty loop body
-            while (i < j && input[--j] >= pivot);
-            if (i < j) {
-                input[i] = input[j];
-            }
-
-            // NOTE: empty loop body
-            while (i < j && input[++i] <= pivot);
-            if (i < j) {
-                input[j] = input[i];
-            }
-
+        for (int value: input) {
+            countArray[getDigit(position, value, radix)]++;
+        }
+        // Adjust the count array
+        for (int j = 1; j < radix; j++) {
+            countArray[j] += countArray[j - 1];
         }
 
-        input[j] = pivot;
-        return j;
+        int[] temp = new int[numItems];
+        for (int tempIndex = numItems - 1; tempIndex >= 0; tempIndex--) {
+            temp[--countArray[getDigit(position, input[tempIndex], radix)]] =
+                    input[tempIndex];
+        }
+
+        for (int tempIndex = 0; tempIndex < numItems; tempIndex++) {
+            input[tempIndex] = temp[tempIndex];
+        }
 
     }
+
+
+    public static int getDigit(int position, int value, int radix) {
+        return value / (int) Math.pow(radix, position) % radix;
+    }
+
+
 
 }
