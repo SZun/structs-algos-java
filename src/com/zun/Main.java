@@ -6,47 +6,31 @@ public class Main {
 
     public static void main(String[] args) {
 
-        int[] intArr = {20, 35, -15, 7, 55, 1, -22};
+//        int[] intArr = {20, 35, -15, 7, 55, 1, -22};
 
-        quickSort(intArr, 0, intArr.length);
+        int[] intArr = {2, 5, 9, 8, 2, 8, 7, 10, 4, 3};
+
+        countingSort(intArr, 1, 10);
 
         System.out.println(Arrays.toString(intArr));
     }
 
-    public static void quickSort(int[] input, int start, int end) {
-        if (end - start < 2) {
-            return;
+    public static void countingSort(int[] input, int min, int max) {
+
+        int[] countArray = new int[(max - min) + 1];
+
+        for (int i = 0; i < input.length; i++) {
+            countArray[input[i] - min]++;
         }
 
-        int pivotIndex = partition(input, start, end);
-        quickSort(input, start, pivotIndex);
-        quickSort(input, pivotIndex + 1, end);
-    }
-
-    public static int partition(int[] input, int start, int end) {
-        // This is using the first element as the pivot
-        int pivot = input[start];
-        int i = start;
-        int j = end;
-
-        while (i < j) {
-
-            // NOTE: empty loop body
-            while (i < j && input[--j] >= pivot);
-            if (i < j) {
-                input[i] = input[j];
+        int j = 0;
+        for (int i = min; i <= max; i++) {
+            while (countArray[i - min] > 0) {
+                input[j++] = i;
+                countArray[i - min]--;
             }
-
-            // NOTE: empty loop body
-            while (i < j && input[++i] <= pivot);
-            if (i < j) {
-                input[j] = input[i];
-            }
-
         }
 
-        input[j] = pivot;
-        return j;
-
     }
+
 }
