@@ -1,9 +1,6 @@
 package com.zun;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Vector;
+import java.util.*;
 
 public class Main {
 
@@ -12,34 +9,40 @@ public class Main {
         Employee employee2 = new Employee(4567, "John", "Doe");
         Employee employee3 = new Employee(22, "Mary", "Smith");
         Employee employee4 = new Employee(3245, "Mike", "Wilson");
+        Employee employee5 = new Employee(2345, "Bill", "Nye");
 
-        EmployeeDoublyLinkedList list = new EmployeeDoublyLinkedList();
+        LinkedList<Employee> list = new LinkedList<>();
+        list.addFirst(employee1);
+        list.addFirst(employee2);
+        list.addFirst(employee3);
+        list.addFirst(employee4);
 
-        list.addToFront(employee1);
-        list.addToFront(employee2);
-        list.addToFront(employee3);
-        list.addToFront(employee4);
+        printList(list);
 
-        getPrintout(list);
+        list.add(employee5);
 
-        Employee employee5 = new Employee(1, "Bill", "Nye");
+        printList(list);
 
-        list.addToEnd(employee5);
+        list.removeFirst();
 
-        getPrintout(list);
+        printList(list);
 
-        list.removeFromFront();
+        list.removeLast();
 
-        getPrintout(list);
+        printList(list);
 
-        list.removeFromEnd();
-
-        getPrintout(list);
+        //        for(Employee i : list) System.out.println(i);
     }
 
-    private static void getPrintout(EmployeeDoublyLinkedList list){
-        list.print();
-        System.out.println(list.getSize());
+    private static void printList(LinkedList list){
+        Iterator iter = list.iterator();
+        System.out.print("HEAD -> ");
+        while(iter.hasNext()){
+            System.out.print(iter.next() + " <=> ");
+        }
+        System.out.println("null");
 
+        System.out.println("List size is now " + list.size());
     }
+
 }
