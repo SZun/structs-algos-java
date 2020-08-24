@@ -9,11 +9,15 @@ public class Main {
         int[] intArr = {20,35,-15,7,1,-22};
 
         for(int i = intArr.length -1; i > 0; i--){
-            for(int j = 0; j < i; j++){
-                if(intArr[j] > intArr[j+1]){
-                    swap(intArr, j, j+1);
+
+            int largest = 0;
+
+            for(int j = 1; j <= i; j++){
+                if(intArr[j] > intArr[largest]){
+                    largest = j;
                 }
             }
+            swap(intArr, largest, i);
         }
 
         System.out.println(Arrays.toString(intArr));
