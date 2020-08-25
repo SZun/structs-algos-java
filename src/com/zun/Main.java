@@ -1,33 +1,46 @@
 package com.zun;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 public class Main {
 
     public static void main(String[] args) {
-        Employee janeJones = new Employee("Jane", "Jones", 123);
-        Employee johnDoe = new Employee("John", "Doe", 4567);
-        Employee marySmith = new Employee("Mary", "Smith", 22);
-        Employee mikeWilson = new Employee("Mike", "Wilson", 3245);
-        Employee billEnd = new Employee("Bill", "End", 78);
 
-        Map<String, Employee> hashMap = new HashMap<>();
-        hashMap.put("Jones", janeJones);
-        hashMap.put("Doe", johnDoe);
-        hashMap.put("Smith", marySmith);
+        int[] arr = {54, 46, 83, 66, 95, 92, 43};
 
-        System.out.println(hashMap.containsKey("Jones"));
-        System.out.println(hashMap.containsValue(janeJones));
+        bucketSort(arr);
 
-//        Iterator<Employee> iterator = hashMap.values().iterator();
-//        while (iterator.hasNext()){
-//            System.out.println(iterator.next());
-//        }
+        System.out.println(Arrays.toString(arr));
 
-//        hashMap.forEach((k,v) -> System.out.println("Key = " + k + "\nValue = " + v));
+    }
 
+    public static void bucketSort(int[] arr){
+        List<Integer>[] buckets = new List[10];
+
+        for(int i = 0; i < buckets.length; i++){
+            buckets[i] = new LinkedList<>();
+            // buckets[i] = new ArrayList<>();
+        }
+
+        for(int i = 0; i < arr.length; i++){
+            buckets[hash(arr[i])].add(arr[i]);
+        }
+
+        for(List bucket: buckets){
+            Collections.sort(bucket);
+        }
+
+        int j = 0;
+
+        for(int i = 0; i < buckets.length; i++){
+            for(int val : buckets[i]){
+                arr[j++] = val;
+            }
+        }
+    }
+
+    private static int hash(int value){
+        return value / (int) 10;
     }
 
 }
