@@ -3,20 +3,31 @@ package com.zun;
 public class Main {
 
     public static void main(String[] args) {
-	    Employee employee = new Employee(1,"A","A");
-	    Employee employee2 = new Employee(2,"B","B");
-	    Employee employee3 = new Employee(3,"C","C");
-	    Employee employee4 = new Employee(4,"D","D");
-	    Employee employee5 = new Employee(5,"E","E");
+        Employee janeJones = new Employee("Jane", "Jones", 123);
+        Employee johnDoe = new Employee("John", "Doe", 4567);
+        Employee marySmith = new Employee("Mary", "Smith", 22);
+        Employee mikeWilson = new Employee("Mike", "Wilson", 3245);
+        Employee billEnd = new Employee("Bill", "End", 78);
 
-	    SimpleHashtable ht = new SimpleHashtable();
+        SimpleHashtable ht = new SimpleHashtable();
+        ht.put("Jones", janeJones);
+        ht.put("Doe", johnDoe);
+        ht.put("Wilson", mikeWilson);
+        ht.put("Smith", marySmith);
 
-	    ht.put("A", employee);
-	    ht.put("B", employee2);
-	    ht.put("C", employee3);
-	    ht.put("D", employee4);
-	    ht.put("E", employee5);
+        ht.printHashtable();
 
-        System.out.println(ht.print());
+        System.out.println("Retrieve key Wilson: " + ht.get("Wilson"));
+        System.out.println("Retrieve key Smith: " + ht.get("Smith"));
+
+        ht.remove("Wilson");
+        ht.remove("Jones");
+        ht.printHashtable();
+
+        System.out.println("Retrieve key Smith: " + ht.get("Smith"));
+
+
+
     }
+
 }

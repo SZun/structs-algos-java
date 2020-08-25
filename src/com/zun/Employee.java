@@ -1,21 +1,14 @@
 package com.zun;
 
 public class Employee {
-    private int id;
+
     private String firstName;
     private String lastName;
+    private int id;
 
-    public Employee(int id, String firstName, String lastName) {
-        this.id = id;
+    public Employee(String firstName, String lastName, int id) {
         this.firstName = firstName;
         this.lastName = lastName;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
         this.id = id;
     }
 
@@ -35,6 +28,14 @@ public class Employee {
         this.lastName = lastName;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -43,25 +44,26 @@ public class Employee {
         Employee employee = (Employee) o;
 
         if (id != employee.id) return false;
-        if (firstName != null ? !firstName.equals(employee.firstName) : employee.firstName != null) return false;
-        return lastName != null ? lastName.equals(employee.lastName) : employee.lastName == null;
-
+        if (!firstName.equals(employee.firstName)) return false;
+        return lastName.equals(employee.lastName);
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
-        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+        int result = firstName.hashCode();
+        result = 31 * result + lastName.hashCode();
+        result = 31 * result + id;
         return result;
     }
 
     @Override
     public String toString() {
         return "Employee{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
+                "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", id=" + id +
                 '}';
     }
+
+
 }
