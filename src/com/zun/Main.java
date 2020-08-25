@@ -1,5 +1,9 @@
 package com.zun;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -9,24 +13,20 @@ public class Main {
         Employee mikeWilson = new Employee("Mike", "Wilson", 3245);
         Employee billEnd = new Employee("Bill", "End", 78);
 
-        ChainedHashtable ht = new ChainedHashtable();
-        ht.put("Jones", janeJones);
-        ht.put("Doe", johnDoe);
-        ht.put("Wilson", mikeWilson);
-        ht.put("Smith", marySmith);
+        Map<String, Employee> hashMap = new HashMap<>();
+        hashMap.put("Jones", janeJones);
+        hashMap.put("Doe", johnDoe);
+        hashMap.put("Smith", marySmith);
 
-        ht.printHashtable();
+        System.out.println(hashMap.containsKey("Jones"));
+        System.out.println(hashMap.containsValue(janeJones));
 
-        System.out.println("Retrieve key Wilson: " + ht.get("Wilson"));
-        System.out.println("Retrieve key Smith: " + ht.get("Smith"));
+//        Iterator<Employee> iterator = hashMap.values().iterator();
+//        while (iterator.hasNext()){
+//            System.out.println(iterator.next());
+//        }
 
-        ht.remove("Wilson");
-        ht.remove("Jones");
-        ht.printHashtable();
-
-        System.out.println("Retrieve key Smith: " + ht.get("Smith"));
-
-
+//        hashMap.forEach((k,v) -> System.out.println("Key = " + k + "\nValue = " + v));
 
     }
 
